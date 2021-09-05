@@ -25,13 +25,15 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import code.fortomorrow.easysharedpref.EasySharedPref;
+import es.dmoral.toasty.Toasty;
 
 public class CartActivity extends AppCompatActivity implements View.OnClickListener{
+    private TextToSpeech textToSpeech;
+    int sum = 0, id = 0;
 
     private TextView priceTV, itemNameText, itemPriceText;
-    MyDatabaseHelper myDatabaseHelper;
-    int sum = 0, id = 0;
-    private TextToSpeech textToSpeech;
+
+    private MyDatabaseHelper myDatabaseHelper;
     LinearLayout linearLayout, linearLayout2;
     Toolbar toolbar;
 
@@ -39,7 +41,10 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        textToSpeech = new TextToSpeech(CartActivity.this, status -> {
+            textToSpeech.setLanguage(Locale.US);
+            textToSpeech.setSpeechRate((float) 0.5);
+        });
         myDatabaseHelper = new MyDatabaseHelper(this);
         itemNameText = findViewById(R.id.itemNameId);
         itemPriceText = findViewById(R.id.itemPriceId);
@@ -52,15 +57,12 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
         toolbar = findViewById(R.id.toolBarId);
         toolbar.setOnClickListener(this);
 
+
+
+
         Cursor cursor =  myDatabaseHelper.retrieveData();
 
-        textToSpeech = new TextToSpeech(CartActivity.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                textToSpeech.setLanguage(Locale.US);
-                textToSpeech.setSpeechRate((float) 0.5);
-            }
-        });
+
 
         try {
             if (cursor.getCount() == 0) {
@@ -86,13 +88,29 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                 sum += Integer.parseInt(cursor.getString(2));
                 if(id==cursor.getCount()){
                     priceTV.setText(sum + " tk");
+
                 }
 
             }
+//            try {
+//                textToSpeech = new TextToSpeech(CartActivity.this, new TextToSpeech.OnInitListener() {
+//                    @Override
+//                    public void onInit(int status) {
+//                        textToSpeech.setLanguage(Locale.US);
+//                        textToSpeech.setSpeechRate((float) 0.5);
+//                    }
+//                });
+//
+//                textToSpeech.speak("Total cost "+sum+"taka", TextToSpeech.QUEUE_FLUSH, null, null);
+//            }catch (Exception e){
+//                Toasty.error(getApplicationContext(),""+e,Toasty.LENGTH_SHORT).show();
+//            }
 
         } catch (Exception e){
             Log.i("Error", e.getMessage());
         }
+
+
     }
 
     @Override

@@ -965,12 +965,17 @@ public abstract class CameraActivity extends AppCompatActivity
     Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-
-    if(intent.resolveActivity(getPackageManager())!=null){
+    try {
       startActivityForResult(intent, 10);
-    } else {
-      Toast.makeText(getApplicationContext(), "Your Device Doesn't Support Voice Command", Toast.LENGTH_SHORT).show();
+    }catch (Exception e){
+      Log.d("yegha",e.toString());
     }
+
+//
+//    if(intent.resolveActivity(getPackageManager())!=null){
+//    } else {
+//      Toast.makeText(getApplicationContext(), "Your Device Doesn't Support Voice Command", Toast.LENGTH_SHORT).show();
+//    }
   }
 
   @Override
@@ -982,33 +987,33 @@ public abstract class CameraActivity extends AppCompatActivity
         if(resultCode==RESULT_OK && data!=null){
           ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-          if(results.get(0).equals("show me the products")){
+          if(results.get(0).equals("show me the products") ||results.get(0).equals("Show me the products") ){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("show me the product")){
+          } else if(results.get(0).equals("show me the product") || results.get(0).equals("Show me the product")){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("show me product")){
+          } else if(results.get(0).equals("show me product")|| results.get(0).equals("Show me product")){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("show me products")){
+          } else if(results.get(0).equals("show me products") || results.get(0).equals("Show me products")){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("go to cart")){
+          } else if(results.get(0).equals("go to cart") || results.get(0).equals("Go to cart")){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("go to cart lsit")){
+          } else if(results.get(0).equals("go to cart lsit")|| results.get(0).equals("Go to cart lsit")){
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
-          } else if(results.get(0).equals("delete product")){
+          } else if(results.get(0).equals("delete product") || results.get(0).equals("Delete product")){
             myDatabaseHelper.deleteData();
             textToSpeech.speak("items are deleted from cart", TextToSpeech.QUEUE_FLUSH, null, null);
 
-          } else if(results.get(0).equals("delete cart")){
+          } else if(results.get(0).equals("delete cart")|| results.get(0).equals("Delete cart")){
             myDatabaseHelper.deleteData();
             textToSpeech.speak("items are deleted from cart", TextToSpeech.QUEUE_FLUSH, null, null);
 
-          } else if(results.get(0).equals("exit")){
+          } else if(results.get(0).equals("exit") || results.get(0).equals("Exit")){
             myDatabaseHelper.deleteData();
             System.exit(0);
 			
