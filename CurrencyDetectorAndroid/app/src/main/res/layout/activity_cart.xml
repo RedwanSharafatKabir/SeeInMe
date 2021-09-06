@@ -55,14 +55,15 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutId"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/firstLinearLayoutId">
+        android:layout_below="@id/firstLinearLayoutId"
+        android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/LinearLayoutId"
@@ -73,49 +74,49 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:weightSum="10"
-                    android:padding="10dp">
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="10">
 
                     <TextView
                         android:id="@+id/itemNameId"
                         android:layout_width="0dp"
-                        android:layout_weight="5"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:gravity="center"/>
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/itemPriceId"
                         android:layout_width="0dp"
-                        android:layout_weight="5"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:gravity="center"/>
+                        android:layout_weight="5"
+                        android:gravity="center"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:padding="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Total Price"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/priceTVId"
-                        android:text="0"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"/>
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textSize="16sp" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

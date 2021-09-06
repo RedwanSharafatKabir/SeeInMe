@@ -965,11 +965,13 @@ public abstract class CameraActivity extends AppCompatActivity
     Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-
-    if(intent.resolveActivity(getPackageManager())!=null){
+	
+    try {
       startActivityForResult(intent, 10);
-    } else {
-      Toast.makeText(getApplicationContext(), "Your Device Doesn't Support Voice Command", Toast.LENGTH_SHORT).show();
+
+    } catch (Exception e){
+      Log.d("Error_Device ", e.getMessage());
+	  Toast.makeText(getApplicationContext(), "Your Device Doesn't Support Voice Command", Toast.LENGTH_SHORT).show();
     }
   }
 
@@ -982,36 +984,60 @@ public abstract class CameraActivity extends AppCompatActivity
         if(resultCode==RESULT_OK && data!=null){
           ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-          if(results.get(0).equals("show me the products")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("show me the product")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("show me product")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("show me products")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("go to cart")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("go to cart lsit")){
-            startActivity(new Intent(CameraActivity.this,CartActivity.class));
-			
-          } else if(results.get(0).equals("delete product")){
-            myDatabaseHelper.deleteData();
-            textToSpeech.speak("items are deleted from cart", TextToSpeech.QUEUE_FLUSH, null, null);
+          if(results.get(0).equals("show me the products") || results.get(0).equals("Show me the products") ||
+                  results.get(0).equals("show me the product") || results.get(0).equals("Show me the product") ||
+                  results.get(0).equals("show me product") || results.get(0).equals("Show me product") ||
+                  results.get(0).equals("show me products") || results.get(0).equals("Show me products") ||
+                  results.get(0).equals("go to cart") || results.get(0).equals("Go to cart") ||
+                  results.get(0).equals("go to cart list") || results.get(0).equals("Go to cart list") ||
+                  results.get(0).equals("All cost") || results.get(0).equals("all cost") ||
+                  results.get(0).equals("Total cost") || results.get(0).equals("total cost") ||
+                  results.get(0).equals("Check") || results.get(0).equals("check") ||
+                  results.get(0).equals("Check products") || results.get(0).equals("check products") ||
+                  results.get(0).equals("Check product") || results.get(0).equals("check product") ||
+                  results.get(0).equals("Check cart") || results.get(0).equals("check cart")){
 
-          } else if(results.get(0).equals("delete cart")){
-            myDatabaseHelper.deleteData();
-            textToSpeech.speak("items are deleted from cart", TextToSpeech.QUEUE_FLUSH, null, null);
+            startActivity(new Intent(CameraActivity.this,CartActivity.class));
+			
+          }
 
-          } else if(results.get(0).equals("exit")){
+          else if(results.get(0).equals("delete product") || results.get(0).equals("delete cart") ||
+                  results.get(0).equals("Delete product") || results.get(0).equals("Delete cart") ||
+                  results.get(0).equals("Clear") || results.get(0).equals("clear") ||
+                  results.get(0).equals("Clear all") || results.get(0).equals("clear all") ||
+                  results.get(0).equals("Clear product") || results.get(0).equals("clear product") ||
+                  results.get(0).equals("Clear products") || results.get(0).equals("clear products") ||
+                  results.get(0).equals("Clear cart") || results.get(0).equals("clear cart") ||
+                  results.get(0).equals("Remove cart") || results.get(0).equals("remove cart") ||
+                  results.get(0).equals("Remove product") || results.get(0).equals("remove product") ||
+                  results.get(0).equals("Remove products") || results.get(0).equals("remove products")){
+
             myDatabaseHelper.deleteData();
+            textToSpeech.speak("items deleted", TextToSpeech.QUEUE_FLUSH, null, null);
+
+          }
+
+          else if(results.get(0).equals("exit") || results.get(0).equals("Exit") || results.get(0).equals("exit app") ||
+                  results.get(0).equals("Exit app") || results.get(0).equals("Close") || results.get(0).equals("close") ||
+                  results.get(0).equals("Close app") || results.get(0).equals("close app")){
+
+            myDatabaseHelper.deleteData();
+            finish();
             System.exit(0);
-			
+          }
+
+          else if(results.get(0).equals("ok") || results.get(0).equals("Ok") ||
+                  results.get(0).equals("okay") || results.get(0).equals("Okay")){
+
+            int m = 0;
+
+            // Reading Data from SharedPrefences for Itemname and Itemprice
+            String itemname = EasySharedPref.read("item","");
+            String itemprice = EasySharedPref.read("price", String.valueOf(m));
+
+            // EasySharedPref.write("items",""+itemname);
+            myDatabaseHelper.insertData(itemname, itemprice);
+            toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
           }
         }
 
