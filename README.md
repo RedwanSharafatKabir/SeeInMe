@@ -1,6 +1,6 @@
-# Android Product Detector App using TensorFlow Lite image classification
+## Android Product Detector App using TensorFlow Lite image classification
 
-## Overview
+### Overview
 
 This is an example application for [TensorFlow Lite](https://tensorflow.org/lite)
 on Android. It uses
@@ -27,7 +27,7 @@ Resnet50
 100 epochs
 Teachable ML
 
-## Requirements
+### Requirements
 
 *   Minimum Android Studio 3.2 and Recomended Artic Fox | 2020.3.1
 
