@@ -18,6 +18,7 @@ running the demo on an Android device. For an explanation of the source, see
 [TensorFlow Lite Android image classification example](https://www.tensorflow.org/lite/models/image_classification/android).
 
 <!-- TODO(b/124116863): Add app screenshot. -->
+<br>
 
 ### Model
 Inside Assests folder zip file is there.
@@ -26,6 +27,23 @@ Resnet50
 16 batch size
 100 epochs
 Teachable ML
+<br><br>
+
+### Screen Shots
+
+#### Detect Product -
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ![product1](https://user-images.githubusercontent.com/37416018/142223670-d47a6c5c-c51b-4727-873a-f138e14ac2b3.jpg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ![product2](https://user-images.githubusercontent.com/37416018/142223680-5f978be8-78e4-4bc5-8bf1-edd19574f8c9.jpg)
+- - - -
+
+#### Voice Command -
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ![voice command](https://user-images.githubusercontent.com/37416018/142223655-71774b00-1cf2-48ea-96a9-99247e14e9e6.jpg)
+- - - -
+
+#### Cart List - 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    ![cart](https://user-images.githubusercontent.com/37416018/142223662-9bf8ce27-e4d6-43da-950d-a592b02ea89e.jpg)
+- - - -
+<br>
 
 ### Requirements
 
@@ -36,3 +54,4 @@ Teachable ML
     with USB debugging enabled
 
 *   USB cable (to connect Android device to your computer)
+<br>
