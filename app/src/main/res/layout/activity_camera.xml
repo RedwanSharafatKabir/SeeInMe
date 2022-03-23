@@ -13,8 +13,7 @@
         android:background="#00000000"
         android:orientation="vertical">
 
-        <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -133,18 +132,15 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/item"
-                />
+                android:id="@+id/item" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="2"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_weight="1"
@@ -160,6 +156,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/pricee"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Prduct accuracy"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                />
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/accuracy"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

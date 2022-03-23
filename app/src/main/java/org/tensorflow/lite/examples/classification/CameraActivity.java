@@ -16,6 +16,8 @@
 
 package org.tensorflow.lite.examples.classification;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -141,7 +143,7 @@ public abstract class CameraActivity extends AppCompatActivity
   private ImageView plusImageView, minusImageView;
   private Spinner modelSpinner;
   private Spinner deviceSpinner;
-  private TextView threadsTextView;
+  private TextView threadsTextView, productAccuracy;
   private ImageView itemImage;
    private Model model = Model.QUANTIZED;
 //  private Model model = Model.FLOAT;
@@ -198,7 +200,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
     carta = findViewById(R.id.cart);
     pricee = findViewById(R.id.pricee);
-
+    productAccuracy = findViewById(R.id.accuracy);
     personSearch = findViewById(R.id.person);
     personSearch.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -461,11 +463,11 @@ public abstract class CameraActivity extends AppCompatActivity
     handlerThread.start();
     handler = new Handler(handlerThread.getLooper());
 
-    mp = MediaPlayer.create(this, R.raw.harpic);
-    mp1 = MediaPlayer.create(this, R.raw.lux);
-    mp2 = MediaPlayer.create(this, R.raw.pepsodent);
-    mp3 = MediaPlayer.create(this, R.raw.pepsodenttoohpowder);
-    mp4 = MediaPlayer.create(this, R.raw.vim);
+//    mp = MediaPlayer.create(this, R.raw.harpic);
+//    mp1 = MediaPlayer.create(this, R.raw.lux);
+//    mp2 = MediaPlayer.create(this, R.raw.pepsodent);
+//    mp3 = MediaPlayer.create(this, R.raw.pepsodenttoohpowder);
+//    mp4 = MediaPlayer.create(this, R.raw.vim);
 
  /*   mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
       @Override
@@ -685,12 +687,13 @@ public abstract class CameraActivity extends AppCompatActivity
         return 0;
     }
   }
-
-  boolean harpic = false;
-  boolean pepsodent = false;
-  boolean pepsodenttoothpowder = false;
-  boolean vim = false;
-  boolean lux = false;
+  
+  boolean Sanitizer = false;
+  boolean Pepsodent = false;
+  boolean Savlon = false;
+  boolean Harpic = false;
+  boolean Lifeboy_Hand_Wash = false;
+  boolean Cool_Heat_Powder = false;
 
   @SuppressLint("DefaultLocale")
   @UiThread
@@ -706,16 +709,59 @@ public abstract class CameraActivity extends AppCompatActivity
                   String.format("%.2f", (100 * recognition.getConfidence())) + "%");
         float confi = 100 * recognition.getConfidence();
 
-
         try {
-          if (!pepsodent && recognitionTextView.getText().toString().equalsIgnoreCase("4 Pepsodent") && confi > 99) {
-//            mp2.start();
+          if (!Sanitizer && recognitionTextView.getText().toString().equalsIgnoreCase("0 Sanitizer") && confi > 99) {
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
 
-            harpic = false;
-            pepsodent = false;
-            pepsodenttoothpowder = false;
-            vim = false;
-            lux = false;
+            if (timeA == 0) {
+              timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
+              mTimerRunning = true;
+              mLeftInMillis = timeA;
+
+              EasySharedPref.write("item", "Sanitizer");
+              EasySharedPref.write("price", "145");
+
+              item.setText("Sanitizer");
+              productAccuracy.setText(confi+" %");
+              itemImage.setImageResource(R.drawable.hand_sanitizer);
+              textToSpeech.speak("Hand Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
+              pricee.setText("145");
+
+            } else {
+              timeNow = timeA - System.currentTimeMillis();
+
+              if (timeNow < 0) {
+                EasySharedPref.write("item", "Sanitizer");
+                EasySharedPref.write("price", "145");
+
+                item.setText("Sanitizer");
+                productAccuracy.setText(confi+" %");
+                itemImage.setImageResource(R.drawable.hand_sanitizer);
+                textToSpeech.speak("Hand Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
+                pricee.setText("145");
+
+                timeNow = 0;
+                timeA = 0;
+                mTimerRunning = false;
+
+              } else {
+                Log.i("Error ", "You can command after 5 seconds");
+              }
+            }
+          }
+
+          else if (!Pepsodent && recognitionTextView.getText().toString().equalsIgnoreCase("1 Pepsodent") && confi > 99) {
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
@@ -726,9 +772,9 @@ public abstract class CameraActivity extends AppCompatActivity
               EasySharedPref.write("price", "40");
 
               item.setText("Pepsodent");
-              itemImage.setImageResource(R.drawable.pepsodent);
+              productAccuracy.setText(confi+" %");
+              itemImage.setImageResource(R.drawable.toothpaste);
               textToSpeech.speak("Pepsodent", TextToSpeech.QUEUE_FLUSH, null, null);
-//              toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
               pricee.setText("40");
 
             } else {
@@ -739,9 +785,9 @@ public abstract class CameraActivity extends AppCompatActivity
                 EasySharedPref.write("price", "40");
 
                 item.setText("Pepsodent");
-                itemImage.setImageResource(R.drawable.pepsodent);
+                productAccuracy.setText(confi+" %");
+                itemImage.setImageResource(R.drawable.toothpaste);
                 textToSpeech.speak("Pepsodent", TextToSpeech.QUEUE_FLUSH, null, null);
-//                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                 pricee.setText("40");
 
                 timeNow = 0;
@@ -754,12 +800,62 @@ public abstract class CameraActivity extends AppCompatActivity
             }
           }
 
-          else if (!harpic && recognitionTextView.getText().toString().equalsIgnoreCase("0 Harpic") && confi > 95) {
-            harpic = false;
-            pepsodent = false;
-            pepsodenttoothpowder = false;
-            vim = false;
-            lux = false;
+          else if (!Savlon && recognitionTextView.getText().toString().equalsIgnoreCase("2 Savlon") && confi > 99) {
+
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
+
+            if (timeA == 0) {
+              timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
+              mTimerRunning = true;
+              mLeftInMillis = timeA;
+
+              EasySharedPref.write("item", "Savlon");
+              EasySharedPref.write("price","220");
+
+              item.setText("Savlon");
+              itemImage.setImageResource(R.drawable.savlon);
+              pricee.setText("220");
+              productAccuracy.setText(confi+" %");
+              textToSpeech.speak("Savlon", TextToSpeech.QUEUE_FLUSH, null, null);
+
+            } else {
+              timeNow = timeA - System.currentTimeMillis();
+
+              if (timeNow < 0) {
+
+                EasySharedPref.write("item", "Savlon");
+                EasySharedPref.write("price","220");
+
+                item.setText("Savlon");
+                itemImage.setImageResource(R.drawable.savlon);
+                productAccuracy.setText(confi+" %");
+                pricee.setText("220");
+                textToSpeech.speak("Savlon", TextToSpeech.QUEUE_FLUSH, null, null);
+
+                timeNow = 0;
+                timeA = 0;
+                mTimerRunning = false;
+
+              } else {
+                Log.i("Error ", "You can command after 5 seconds");
+              }
+            }
+
+          }
+
+          /*
+          else if (!Harpic && recognitionTextView.getText().toString().equalsIgnoreCase("3 Harpic") && confi > 99) {
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
@@ -770,9 +866,9 @@ public abstract class CameraActivity extends AppCompatActivity
               EasySharedPref.write("price","110");
 
               item.setText("Harpic");
+              productAccuracy.setText(confi+" %");
               itemImage.setImageResource(R.drawable.harpic);
               textToSpeech.speak("Harpic", TextToSpeech.QUEUE_FLUSH, null, null);
-//              toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
               pricee.setText("110");
 
             } else {
@@ -785,8 +881,8 @@ public abstract class CameraActivity extends AppCompatActivity
                 item.setText("Harpic");
                 itemImage.setImageResource(R.drawable.harpic);
                 textToSpeech.speak("Harpic", TextToSpeech.QUEUE_FLUSH, null, null);
-//                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                 pricee.setText("110");
+                productAccuracy.setText(confi+" %");
 
                 timeNow = 0;
                 timeA = 0;
@@ -797,40 +893,42 @@ public abstract class CameraActivity extends AppCompatActivity
               }
             }
           }
-
-          else if (!lux && recognitionTextView.getText().toString().equalsIgnoreCase("1 Lux") && confi > 99) {
-            harpic = false;
-            pepsodent = false;
-            pepsodenttoothpowder = false;
-            vim = false;
-            lux = false;
+          */
+          
+          else if (!Lifeboy_Hand_Wash && recognitionTextView.getText().toString().equalsIgnoreCase("4 Lifeboy Hand Wash") && confi > 99) {
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Lux");
-              EasySharedPref.write("price","40");
+              EasySharedPref.write("item", "Lifeboy_Hand_Wash");
+              EasySharedPref.write("price","80");
 
-              item.setText("Lux");
-              itemImage.setImageResource(R.drawable.lux);
-//              toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-              pricee.setText("40");
-              textToSpeech.speak("Lux", TextToSpeech.QUEUE_FLUSH, null, null);
+              item.setText("Lifeboy Hand Wash");
+              productAccuracy.setText(confi+" %");
+              itemImage.setImageResource(R.drawable.hand_wash);
+              pricee.setText("80");
+              textToSpeech.speak("Lifeboy Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
 
             } else {
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
-                EasySharedPref.write("item", "Lux");
-                EasySharedPref.write("price", "40");
+                EasySharedPref.write("item", "Lifeboy_Hand_Wash");
+                EasySharedPref.write("price", "80");
 
-                item.setText("Lux");
-                itemImage.setImageResource(R.drawable.lux);
-//                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-                pricee.setText("40");
-                textToSpeech.speak("Lux", TextToSpeech.QUEUE_FLUSH, null, null);
+                item.setText("Lifeboy Hand Wash");
+                itemImage.setImageResource(R.drawable.hand_wash);
+                pricee.setText("80");
+                productAccuracy.setText(confi+" %");
+                textToSpeech.speak("Lifeboy Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
 
                 timeNow = 0;
                 timeA = 0;
@@ -841,43 +939,43 @@ public abstract class CameraActivity extends AppCompatActivity
               }
             }
           }
+          
+          else if (!Cool_Heat_Powder && recognitionTextView.getText().toString().equalsIgnoreCase("5 Cool Heat Powder") && confi > 99) {
 
-          else if (!pepsodenttoothpowder && recognitionTextView.getText().toString().
-                  equalsIgnoreCase("3 PepsodentToothPowder") && confi > 99) {
-
-            harpic = false;
-            pepsodent = false;
-            pepsodenttoothpowder = false;
-            vim = false;
-            lux = false;
+            Sanitizer = false;
+            Pepsodent = false;
+            Savlon = false;
+            Harpic = false;
+            Lifeboy_Hand_Wash = false;
+            Cool_Heat_Powder = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "PepsodentToothPaste");
-              EasySharedPref.write("price","25");
+              EasySharedPref.write("item", "Cool_Heat_Powder");
+              EasySharedPref.write("price","55");
 
-              item.setText("PepsodentToothPaste");
-              itemImage.setImageResource(R.drawable.toothpaste);
-//              toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-              pricee.setText("25");
-              textToSpeech.speak("Pepsodent Tooth Paste", TextToSpeech.QUEUE_FLUSH, null, null);
+              item.setText("Cool Heat Powder");
+              productAccuracy.setText(confi+" %");
+              itemImage.setImageResource(R.drawable.ice_cool_powder);
+              pricee.setText("55");
+              textToSpeech.speak("Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
 
             } else {
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
 
-                EasySharedPref.write("item", "PepsodentToothPaste");
-                EasySharedPref.write("price","25");
+                EasySharedPref.write("item", "Cool_Heat_Powder");
+                EasySharedPref.write("price","55");
 
-                item.setText("PepsodentToothPaste");
-                itemImage.setImageResource(R.drawable.toothpaste);
-//                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-                pricee.setText("25");
-                textToSpeech.speak("Pepsodent Tooth Paste", TextToSpeech.QUEUE_FLUSH, null, null);
+                item.setText("Cool Heat Powder");
+                productAccuracy.setText(confi+" %");
+                itemImage.setImageResource(R.drawable.ice_cool_powder);
+                pricee.setText("55");
+                textToSpeech.speak("Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
 
                 timeNow = 0;
                 timeA = 0;
@@ -886,54 +984,9 @@ public abstract class CameraActivity extends AppCompatActivity
               } else {
                 Log.i("Error ", "You can command after 5 seconds");
               }
+
             }
 
-          }
-
-          else if (!vim && recognitionTextView.getText().toString().equalsIgnoreCase("5 Vim") && confi > 99) {
-
-            harpic = false;
-            pepsodent = false;
-            pepsodenttoothpowder = false;
-            vim = false;
-            lux = false;
-
-            if (timeA == 0) {
-              timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
-              mTimerRunning = true;
-              mLeftInMillis = timeA;
-
-              EasySharedPref.write("item", "Vim");
-              EasySharedPref.write("price","12");
-
-              item.setText("Vim");
-              itemImage.setImageResource(R.drawable.vim);
-//              toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-              pricee.setText("12");
-              textToSpeech.speak("Vim bar", TextToSpeech.QUEUE_FLUSH, null, null);
-
-            } else {
-              timeNow = timeA - System.currentTimeMillis();
-
-              if (timeNow < 0) {
-
-                EasySharedPref.write("item", "Vim");
-                EasySharedPref.write("price","12");
-
-                item.setText("Vim");
-                itemImage.setImageResource(R.drawable.vim);
-//                toneGen1.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
-                pricee.setText("12");
-                textToSpeech.speak("Vim bar", TextToSpeech.QUEUE_FLUSH, null, null);
-
-                timeNow = 0;
-                timeA = 0;
-                mTimerRunning = false;
-
-              } else {
-                Log.i("Error ", "You can command after 5 seconds");
-              }
-            }
           }
 
         } catch (Exception e) {
@@ -995,7 +1048,20 @@ public abstract class CameraActivity extends AppCompatActivity
                   results.get(0).equals("Check") || results.get(0).equals("check") ||
                   results.get(0).equals("Check products") || results.get(0).equals("check products") ||
                   results.get(0).equals("Check product") || results.get(0).equals("check product") ||
-                  results.get(0).equals("Check cart") || results.get(0).equals("check cart")){
+                  results.get(0).equals("Check cart") || results.get(0).equals("check cart") ||
+                  results.get(0).equals("ki ki ache") || results.get(0).equals("amar product") ||
+                  results.get(0).equals("shob product") || results.get(0).equals("shokol product") ||
+                  results.get(0).equals("cart dekhan") || results.get(0).equals("product dekhan") ||
+                  results.get(0).equals("Ki ki ache") || results.get(0).equals("Amar product") ||
+                  results.get(0).equals("Shob product") || results.get(0).equals("Shokol product") ||
+                  results.get(0).equals("Cart dekhan") || results.get(0).equals("Product dekhan") ||
+                  results.get(0).equals("ki ki ache") || results.get(0).equals("amar product") ||
+                  results.get(0).equals("shob product") || results.get(0).equals("shokol product") ||
+                  results.get(0).equals("cart deccan") || results.get(0).equals("product deccan") ||
+                  results.get(0).equals("Ki ki ache") || results.get(0).equals("Amar product") ||
+                  results.get(0).equals("Shob product") || results.get(0).equals("Shokol product") ||
+                  results.get(0).equals("Cart deccen") || results.get(0).equals("Product deccen") ||
+                  results.get(0).equals("Cart deccan") || results.get(0).equals("Product deccan")){
 
             startActivity(new Intent(CameraActivity.this,CartActivity.class));
 			
@@ -1010,16 +1076,18 @@ public abstract class CameraActivity extends AppCompatActivity
                   results.get(0).equals("Clear cart") || results.get(0).equals("clear cart") ||
                   results.get(0).equals("Remove cart") || results.get(0).equals("remove cart") ||
                   results.get(0).equals("Remove product") || results.get(0).equals("remove product") ||
-                  results.get(0).equals("Remove products") || results.get(0).equals("remove products")){
+                  results.get(0).equals("Remove products") || results.get(0).equals("remove products") ||
+                  results.get(0).equals("Product delete korun") || results.get(0).equals("product delete korun") ||
+                  results.get(0).equals("Delete korun") || results.get(0).equals("delete korun")){
 
             myDatabaseHelper.deleteData();
-            textToSpeech.speak("items deleted", TextToSpeech.QUEUE_FLUSH, null, null);
-
+            textToSpeech.speak("ponno gulo delete kora hoyeche", TextToSpeech.QUEUE_FLUSH, null, null);
           }
 
           else if(results.get(0).equals("exit") || results.get(0).equals("Exit") || results.get(0).equals("exit app") ||
                   results.get(0).equals("Exit app") || results.get(0).equals("Close") || results.get(0).equals("close") ||
-                  results.get(0).equals("Close app") || results.get(0).equals("close app")){
+                  results.get(0).equals("Close app") || results.get(0).equals("close app") ||
+                  results.get(0).equals("App bondho korun") || results.get(0).equals("app bondho korun")){
 
             myDatabaseHelper.deleteData();
             finish();

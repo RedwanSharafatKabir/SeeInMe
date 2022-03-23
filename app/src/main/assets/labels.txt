@@ -1,5 +1,6 @@
-0 Harpic
-1 Lux
-2 Pepsodent
-3 PepsodentToothPowder
-4 Vim
+0 Sanitizer
+1 Pepsodent
+2 Savlon
+3 Harpic
+4 Lifeboy Hand Wash
+5 Cool Heat Powder

@@ -153,7 +153,9 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
                         results.get(0).equals("Clear cart") || results.get(0).equals("clear cart") ||
                         results.get(0).equals("Remove cart") || results.get(0).equals("remove cart") ||
                         results.get(0).equals("Remove product") || results.get(0).equals("remove product") ||
-                        results.get(0).equals("Remove products") || results.get(0).equals("remove products")){
+                        results.get(0).equals("Remove products") || results.get(0).equals("remove products") ||
+                        results.get(0).equals("Product delete korun") || results.get(0).equals("product delete korun") ||
+                        results.get(0).equals("Delete korun") || results.get(0).equals("delete korun")){
 
                         myDatabaseHelper.deleteData();
 
@@ -167,7 +169,8 @@ public class CartActivity extends AppCompatActivity implements View.OnClickListe
 
                     else if(results.get(0).equals("exit") || results.get(0).equals("Exit") || results.get(0).equals("exit app") ||
                             results.get(0).equals("Exit app") || results.get(0).equals("Close") || results.get(0).equals("close") ||
-                            results.get(0).equals("Close app") || results.get(0).equals("close app")){
+                            results.get(0).equals("Close app") || results.get(0).equals("close app") ||
+                            results.get(0).equals("App bondho korun") || results.get(0).equals("app bondho korun")){
 
                         myDatabaseHelper.deleteData();
                         finish();
