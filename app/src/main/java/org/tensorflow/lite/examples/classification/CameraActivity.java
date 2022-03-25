@@ -1050,16 +1050,16 @@ public abstract class CameraActivity extends AppCompatActivity
                   results.get(0).equals("Check product") || results.get(0).equals("check product") ||
                   results.get(0).equals("Check cart") || results.get(0).equals("check cart") ||
                   results.get(0).equals("ki ki ache") || results.get(0).equals("amar product") ||
-                  results.get(0).equals("shob product") || results.get(0).equals("shokol product") ||
+                  results.get(0).equals("shop product") || results.get(0).equals("shakal product") ||
                   results.get(0).equals("cart dekhan") || results.get(0).equals("product dekhan") ||
                   results.get(0).equals("Ki ki ache") || results.get(0).equals("Amar product") ||
                   results.get(0).equals("Shob product") || results.get(0).equals("Shokol product") ||
                   results.get(0).equals("Cart dekhan") || results.get(0).equals("Product dekhan") ||
                   results.get(0).equals("ki ki ache") || results.get(0).equals("amar product") ||
-                  results.get(0).equals("shob product") || results.get(0).equals("shokol product") ||
+                  results.get(0).equals("shop product") || results.get(0).equals("shakal product") ||
                   results.get(0).equals("cart deccan") || results.get(0).equals("product deccan") ||
                   results.get(0).equals("Ki ki ache") || results.get(0).equals("Amar product") ||
-                  results.get(0).equals("Shob product") || results.get(0).equals("Shokol product") ||
+                  results.get(0).equals("Shop product") || results.get(0).equals("Shakal product") ||
                   results.get(0).equals("Cart deccen") || results.get(0).equals("Product deccen") ||
                   results.get(0).equals("Cart deccan") || results.get(0).equals("Product deccan")){
 

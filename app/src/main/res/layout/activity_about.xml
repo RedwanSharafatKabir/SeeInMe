@@ -68,7 +68,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="sans-serif-condensed"
                 android:paddingLeft="10dp"
-                android:text="2. Rakibuzzaman "
+                android:text="1. Rakibuzzaman "
                 android:textAlignment="textStart"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold" />
