@@ -1,6 +1,6 @@
-0 Sanitizer
-1 Pepsodent
-2 Savlon
-3 Harpic
-4 Lifeboy Hand Wash
-5 Cool Heat Powder
+0 detol
+1 handwash
+2 harpic
+3 ice-cool
+4 pepsodent
+5 savlon

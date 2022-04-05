@@ -145,8 +145,8 @@ public abstract class CameraActivity extends AppCompatActivity
   private Spinner deviceSpinner;
   private TextView threadsTextView, productAccuracy;
   private ImageView itemImage;
-   private Model model = Model.QUANTIZED;
-//  private Model model = Model.FLOAT;
+//   private Model model = Model.QUANTIZED;
+  private Model model = Model.FLOAT;
   private Device device = Device.CPU;
   private int numThreads = -1;
   MediaPlayer mp, mp1, mp2, mp3, mp4;
@@ -687,13 +687,13 @@ public abstract class CameraActivity extends AppCompatActivity
         return 0;
     }
   }
-  
-  boolean Sanitizer = false;
-  boolean Pepsodent = false;
-  boolean Savlon = false;
-  boolean Harpic = false;
-  boolean Lifeboy_Hand_Wash = false;
-  boolean Cool_Heat_Powder = false;
+
+  boolean savlon = false;
+  boolean pepsodent = false;
+  boolean detol = false;
+  boolean harpic = false;
+  boolean handwash = false;
+  boolean ice_cool = false;
 
   @SuppressLint("DefaultLocale")
   @UiThread
@@ -710,39 +710,39 @@ public abstract class CameraActivity extends AppCompatActivity
         float confi = 100 * recognition.getConfidence();
 
         try {
-          if (!Sanitizer && recognitionTextView.getText().toString().equalsIgnoreCase("0 Sanitizer") && confi > 99) {
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+          if (!savlon && recognitionTextView.getText().toString().equalsIgnoreCase("5 savlon") && confi > 99) {
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Sanitizer");
+              EasySharedPref.write("item", "savlon");
               EasySharedPref.write("price", "145");
 
-              item.setText("Sanitizer");
+              item.setText("Savlon Sanitizer");
               productAccuracy.setText(confi+" %");
               itemImage.setImageResource(R.drawable.hand_sanitizer);
-              textToSpeech.speak("Hand Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
+              textToSpeech.speak("Savlon Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
               pricee.setText("145");
 
             } else {
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
-                EasySharedPref.write("item", "Sanitizer");
+                EasySharedPref.write("item", "savlon");
                 EasySharedPref.write("price", "145");
 
-                item.setText("Sanitizer");
+                item.setText("Savlon Sanitizer");
                 productAccuracy.setText(confi+" %");
                 itemImage.setImageResource(R.drawable.hand_sanitizer);
-                textToSpeech.speak("Hand Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
+                textToSpeech.speak("Savlon Sanitizer", TextToSpeech.QUEUE_FLUSH, null, null);
                 pricee.setText("145");
 
                 timeNow = 0;
@@ -755,20 +755,20 @@ public abstract class CameraActivity extends AppCompatActivity
             }
           }
 
-          else if (!Pepsodent && recognitionTextView.getText().toString().equalsIgnoreCase("1 Pepsodent") && confi > 99) {
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+          else if (!pepsodent && recognitionTextView.getText().toString().equalsIgnoreCase("4 pepsodent") && confi > 99) {
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Pepsodent");
+              EasySharedPref.write("item", "pepsodent");
               EasySharedPref.write("price", "40");
 
               item.setText("Pepsodent");
@@ -781,7 +781,7 @@ public abstract class CameraActivity extends AppCompatActivity
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
-                EasySharedPref.write("item", "Pepsodent");
+                EasySharedPref.write("item", "pepsodent");
                 EasySharedPref.write("price", "40");
 
                 item.setText("Pepsodent");
@@ -800,21 +800,21 @@ public abstract class CameraActivity extends AppCompatActivity
             }
           }
 
-          else if (!Savlon && recognitionTextView.getText().toString().equalsIgnoreCase("2 Savlon") && confi > 99) {
+          else if (!detol && recognitionTextView.getText().toString().equalsIgnoreCase("0 detol") && confi > 99) {
 
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Savlon");
+              EasySharedPref.write("item", "detol");
               EasySharedPref.write("price","220");
 
               item.setText("Savlon");
@@ -828,7 +828,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
               if (timeNow < 0) {
 
-                EasySharedPref.write("item", "Savlon");
+                EasySharedPref.write("item", "detol");
                 EasySharedPref.write("price","220");
 
                 item.setText("Savlon");
@@ -848,21 +848,21 @@ public abstract class CameraActivity extends AppCompatActivity
 
           }
 
-          /*
-          else if (!Harpic && recognitionTextView.getText().toString().equalsIgnoreCase("3 Harpic") && confi > 99) {
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+          else if (!harpic && recognitionTextView.getText().toString().equalsIgnoreCase("2 harpic") && confi > 99) {
+
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Harpic");
+              EasySharedPref.write("item", "harpic");
               EasySharedPref.write("price","110");
 
               item.setText("Harpic");
@@ -875,7 +875,7 @@ public abstract class CameraActivity extends AppCompatActivity
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
-                EasySharedPref.write("item", "Harpic");
+                EasySharedPref.write("item", "harpic");
                 EasySharedPref.write("price", "110");
 
                 item.setText("Harpic");
@@ -893,42 +893,41 @@ public abstract class CameraActivity extends AppCompatActivity
               }
             }
           }
-          */
-          
-          else if (!Lifeboy_Hand_Wash && recognitionTextView.getText().toString().equalsIgnoreCase("4 Lifeboy Hand Wash") && confi > 99) {
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+
+          else if (!handwash && recognitionTextView.getText().toString().equalsIgnoreCase("1 handwash") && confi > 99) {
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Lifeboy_Hand_Wash");
+              EasySharedPref.write("item", "handwash");
               EasySharedPref.write("price","80");
 
-              item.setText("Lifeboy Hand Wash");
+              item.setText("Hand Wash");
               productAccuracy.setText(confi+" %");
               itemImage.setImageResource(R.drawable.hand_wash);
               pricee.setText("80");
-              textToSpeech.speak("Lifeboy Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
+              textToSpeech.speak("Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
 
             } else {
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
-                EasySharedPref.write("item", "Lifeboy_Hand_Wash");
+                EasySharedPref.write("item", "handwash");
                 EasySharedPref.write("price", "80");
 
-                item.setText("Lifeboy Hand Wash");
+                item.setText("Hand Wash");
                 itemImage.setImageResource(R.drawable.hand_wash);
                 pricee.setText("80");
                 productAccuracy.setText(confi+" %");
-                textToSpeech.speak("Lifeboy Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
+                textToSpeech.speak("Hand Wash", TextToSpeech.QUEUE_FLUSH, null, null);
 
                 timeNow = 0;
                 timeA = 0;
@@ -940,42 +939,42 @@ public abstract class CameraActivity extends AppCompatActivity
             }
           }
           
-          else if (!Cool_Heat_Powder && recognitionTextView.getText().toString().equalsIgnoreCase("5 Cool Heat Powder") && confi > 99) {
+          else if (!ice_cool && recognitionTextView.getText().toString().equalsIgnoreCase("3 ice-cool") && confi > 99) {
 
-            Sanitizer = false;
-            Pepsodent = false;
-            Savlon = false;
-            Harpic = false;
-            Lifeboy_Hand_Wash = false;
-            Cool_Heat_Powder = false;
+            savlon = false;
+            pepsodent = false;
+            detol = false;
+            harpic = false;
+            handwash = false;
+            ice_cool = false;
 
             if (timeA == 0) {
               timeA = System.currentTimeMillis() + START_TIME_IN_MILLIS;
               mTimerRunning = true;
               mLeftInMillis = timeA;
 
-              EasySharedPref.write("item", "Cool_Heat_Powder");
+              EasySharedPref.write("item", "ice_cool");
               EasySharedPref.write("price","55");
 
-              item.setText("Cool Heat Powder");
+              item.setText("Ice Cool Heat Powder");
               productAccuracy.setText(confi+" %");
               itemImage.setImageResource(R.drawable.ice_cool_powder);
               pricee.setText("55");
-              textToSpeech.speak("Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
+              textToSpeech.speak("Ice Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
 
             } else {
               timeNow = timeA - System.currentTimeMillis();
 
               if (timeNow < 0) {
 
-                EasySharedPref.write("item", "Cool_Heat_Powder");
+                EasySharedPref.write("item", "ice_cool");
                 EasySharedPref.write("price","55");
 
-                item.setText("Cool Heat Powder");
+                item.setText("Ice Cool Heat Powder");
                 productAccuracy.setText(confi+" %");
                 itemImage.setImageResource(R.drawable.ice_cool_powder);
                 pricee.setText("55");
-                textToSpeech.speak("Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
+                textToSpeech.speak("Ice Cool Heat Powder", TextToSpeech.QUEUE_FLUSH, null, null);
 
                 timeNow = 0;
                 timeA = 0;
