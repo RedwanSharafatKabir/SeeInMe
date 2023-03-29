@@ -1,10 +1,8 @@
 package org.tensorflow.lite.examples.classification;
 
 import static org.tensorflow.lite.examples.classification.MyDatabaseHelper.TABLE_NAME;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;

@@ -44,9 +44,9 @@ dependencies {
     // Use local TensorFlow library
     // implementation 'org.tensorflow:tensorflow-lite-local:0.0.0'
     implementation 'com.github.Kayuemkhan:easysharedpref:1.0.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.github.GrenderG:Toasty:1.5.0'
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
 
 
 }
